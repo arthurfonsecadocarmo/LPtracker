@@ -28,7 +28,7 @@ Cada decisão tem um status: **Proposta** (ainda não validada) → **Aceita** (
 - **Trade-off:** O caminho dos campos (`props.pageProps.product.prices...`) é interno ao site e pode mudar sem aviso. Mitigações: código de extração isolado do restante, testes com HTML salvo (fixtures) e alerta de falha (ver SRS).
 
 ## 3. Armazenamento (Banco de Dados)
-- **Status:** Proposta (a validar em um spike de persistência no Actions).
+- **Status:** - **Status:** Aceita (validada no [Spike 02](spikes/02-persistencia.md)).
 - **Decisão:** SQLite (`data/tracker.db`), **persistido no próprio repositório**: ao fim de cada execução, o workflow faz commit e push do banco atualizado; na execução seguinte, o `checkout` já traz o histórico.
 - **Razão:** Armazenamento local estruturado, sem burocracia de servidores, com suporte a SQL nativo e custo zero. O repositório funciona como "armário" entre execuções, já que o runner é efêmero.
 - **Requisitos do workflow:** permissão `contents: write` e `concurrency` (para impedir duas execuções simultâneas corrompendo o arquivo).
