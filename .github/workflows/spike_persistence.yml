@@ -1,0 +1,28 @@
+name: Spike Persistencia
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write        # permite ao workflow gravar no repositório
+
+concurrency:
+  group: persistencia    # impede duas execuções ao mesmo tempo
+  cancel-in-progress: false
+
+jobs:
+  persistir:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: python src/spike_persistencia.py
+      - name: Salvar o banco de volta no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/spike.db
+          git commit -m "chore: atualizar spike.db" || echo "Nada para commitar"
+          git push
