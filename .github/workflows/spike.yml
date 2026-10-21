@@ -1,0 +1,15 @@
+name: Spike Kabum
+
+on:
+  workflow_dispatch:   # só roda quando você clicar no botão
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4          # baixa seu repositório no runner
+      - uses: actions/setup-python@v5      # instala o Python
+        with:
+          python-version: "3.14.7"
+      - run: pip install requests beautifulsoup4
+      - run: python src/spike.py
