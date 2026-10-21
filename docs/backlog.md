@@ -42,6 +42,10 @@
     - *História:* Como sistema, quero salvar no banco o preço coletado junto com o timestamp da execução.
     - *Definition of Done:*
         - Cada execução bem-sucedida do scraper insere um novo registro na tabela `historico_precos`.
+- **US-07: Persistir o banco entre execuções do GitHub Actions**
+    - *História:* Como sistema, quero salvar o banco no repositório para não perder o arquivo no computador temporário.
+    - *Definition of Done:*
+        - banco de dados salvos a cada coleta de dados e crescendo.
 
 ---
 
