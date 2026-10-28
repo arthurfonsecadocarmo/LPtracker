@@ -1,6 +1,6 @@
 # Product Backlog - LPtracker
 
-Última revisão: 2026-10-21
+Última revisão: 2026-10-28
 
 **Legenda:** ✅ concluído · 🔄 em andamento · ⬜ a fazer
 
@@ -19,7 +19,7 @@ Uma história só está pronta quando:
 
 | Fatia | Objetivo | Histórias | Status |
 |---|---|---|---|
-| 0 | Fundação e validação dos riscos | US-01, US-02, SP-01, SP-02 | 🔄 |
+| 0 | Fundação e validação dos riscos | US-01, US-02, SP-01, SP-02 | ✅ |
 | 1 | Coleta contínua de 1 produto, sem alerta (o histórico já começa a acumular) | US-02, US-03, US-05, US-06, US-10, US-09 | ⬜ |
 | 2 | Confiabilidade da coleta | US-04, US-12, US-14 | ⬜ |
 | 3 | Alerta de baixa histórica | US-07, US-15, US-08 | ⬜ |
@@ -29,7 +29,7 @@ Uma história só está pronta quando:
 
 ## Fatia 0 — Fundação e validação dos riscos
 
-- **US-01: Configuração do Repositório e Documentação** 🔄
+- **US-01: Configuração do Repositório e Documentação** ✅
     - *História:* Como desenvolvedor, quero estruturar as pastas do projeto e documentar os requisitos e a arquitetura para garantir manutenibilidade e clareza.
     - *Definition of Done:*
         - Pastas `src/`, `docs/`, `data/` criadas.
@@ -46,19 +46,25 @@ Uma história só está pronta quando:
 
 *Meta da fatia:* depois de 2 dias, o repositório contém um `data/tracker.db` com pelo menos 4 registros de preço, commitados pelo robô, sem nenhuma intervenção manual.
 
-- **US-02: Configuração do Ambiente de Desenvolvimento** 🔄
+- **US-02: Configuração do Ambiente de Desenvolvimento** ✅
     - *História:* Como desenvolvedor, quero um ambiente virtual Python isolado para gerenciar as dependências do projeto.
     - *Definition of Done:*
         - Ambiente virtual (`venv`) ativado e fora do Git (`.gitignore`).
         - `requirements.txt` com `requests` e `beautifulsoup4` em versões fixadas.
         - Versão do Python registrada no README e igual à usada no workflow.
-- **US-03: Coletor da Kabum (BaseScraper + KabumScraper)** ⬜
+- **US-03: Coletor da Kabum (BaseScraper + KabumScraper)** 🔄
     - *História:* Como sistema, quero coletar o nome e os preços de um produto via requisição HTTP para alimentar o histórico.
     - *Critérios de Aceite:*
         - Classe `BaseScraper` com o contrato comum (receber uma URL, devolver nome, `preco_vista` e `preco_cheio`).
         - `KabumScraper` lê o `__NEXT_DATA__` (campos `priceWithDiscount` e `price`) e usa o JSON-LD como reserva.
         - Preços convertidos para **centavos (inteiro)**.
         - Script de teste imprime o resultado no terminal.
+        - *Andamento:*
+        - [ ] Página da Kabum salva como fixture (`scripts/salvar_fixture.py`)
+        - [ ] Classes em arquivos separados dentro de `src/`
+        - [ ] `KabumScraper` lendo a fixture
+        - [ ] Testes com `pytest`
+        - [ ] Coleta pela internet, com `timeout` e erros
 - **US-05: Modelagem e Criação do Banco SQLite** ⬜
     - *História:* Como sistema, quero um banco local estruturado para armazenar o histórico temporal dos produtos.
     - *Definition of Done:*
@@ -105,8 +111,8 @@ Uma história só está pronta quando:
 - **US-14: Testes do extrator com HTML salvo** ⬜
     - *História:* Como desenvolvedor, quero testar o extrator sem depender da internet, para detectar rápido quando o layout do site mudar.
     - *Definition of Done:*
-        - Um HTML real da Kabum salvo em `tests/fixtures/`.
-        - Testes com `pytest` verificam nome e preços extraídos, e o comportamento quando o campo não existe.
+        - Testes de cenário de falha: campo ausente no HTML, JSON inválido e página sem produto.
+        - Fixture de uma segunda situação (ex.: produto indisponível), se aparecer uma.
 
 ---
 
